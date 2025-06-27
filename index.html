@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vorexis Studios Site</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="shortcut icon" type="image/png" href="logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
@@ -77,53 +79,127 @@
     .hero-pattern {
       background-image: radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
     }
+    
+    /* Glassmorphism para o cabeçalho */
+    nav {
+      background: rgba(26, 26, 26, 0.85);
+      backdrop-filter: blur(8px) saturate(120%);
+      border-bottom: 1.5px solid #FFD70044;
+      box-shadow: 0 4px 24px 0 rgba(255, 215, 0, 0.04);
+      transition: background 0.3s;
+    }
+    nav.shadow-lg {
+      background: rgba(26, 26, 26, 0.95);
+      box-shadow: 0 8px 32px 0 rgba(255, 215, 0, 0.10);
+    }
+    /* Fade-in animação */
+    body {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    body.loaded {
+      opacity: 1;
+    }
+    /* Menu mobile destaque */
+    #mobile-menu {
+      box-shadow: 0 8px 32px 0 rgba(255, 215, 0, 0.10);
+      border-radius: 0 0 1rem 1rem;
+      border-top: 2px solid #FFD70044;
+      background: rgba(26, 26, 26, 0.98);
+      backdrop-filter: blur(6px);
+    }
+    /* Animações de entrada */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+    /* Efeito de hover aprimorado nos cards */
+    .team-card:hover, .game-card:hover, .bg-dark-800:hover {
+      box-shadow: 0 12px 32px 0 rgba(255, 215, 0, 0.18), 0 1.5px 8px 0 rgba(0,0,0,0.12);
+      border-color: #FFD700 !important;
+      transform: translateY(-8px) scale(1.025);
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    /* Botões com efeito de brilho */
+    .btn-glow {
+      box-shadow: 0 0 0 rgba(255, 215, 0, 0.0);
+      transition: box-shadow 0.3s;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 16px 2px #FFD70099;
+    }
+    /* Destaque para títulos */
+    .section-title {
+      letter-spacing: 1.5px;
+      position: relative;
+      z-index: 1;
+    }
+    .section-title:before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #FFD700 0%, #fff 100%);
+      border-radius: 2px;
+      z-index: -1;
+    }
+    @keyframes fade-in-down {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-down {
+      animation: fade-in-down 0.5s;
+    }
   </style>
 </head>
 <body class="bg-dark-900 text-gray-300 min-h-screen">
   <!-- Navigation -->
-  <nav class="bg-dark-800 border-b border-gold-500 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <span class="text-gold-500 font-bold text-2xl">VOREXIS</span>
-          </div>
-          <div class="hidden md:block">
-            <div class="ml-10 flex items-baseline space-x-4">
-              <a href="#about" class="nav-link text-white px-3 py-2 text-sm font-medium">Sobre</a>
-              <a href="#team" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Equipe</a>
-              <a href="#project" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Projeto</a>
-              <a href="#values" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Valores</a>
-              <a href="#community" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Comunidade</a>
-            </div>
-          </div>
+  <nav class="fixed top-0 left-0 w-full z-50 bg-transparent">
+    <div class="backdrop-blur-xl bg-dark-800/80 border-b border-gold-500/40 shadow-lg transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+          <img src="logo.png" alt="Vorexis Studios" class="h-10 md:h-12 w-auto drop-shadow-lg" />
+          <span class="text-2xl md:text-3xl font-title font-extrabold text-gold-500 tracking-widest drop-shadow-lg">VOREXIS</span>
         </div>
-        <div class="hidden md:block">
-          <a href="https://discord.gg/Z83N86yX7p" target="_blank" class="bg-gold-500 hover:bg-gold-600 text-black font-bold py-2 px-4 rounded-md transition duration-300 flex items-center">
-            <i class="fab fa-discord mr-2"></i> Discord
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#about" class="nav-link text-white text-base font-semibold px-2 py-1 hover:text-gold-500 transition">Sobre</a>
+          <a href="#team" class="nav-link text-white text-base font-semibold px-2 py-1 hover:text-gold-500 transition">Equipe</a>
+          <a href="#project" class="nav-link text-white text-base font-semibold px-2 py-1 hover:text-gold-500 transition">Projeto</a>
+          <a href="#values" class="nav-link text-white text-base font-semibold px-2 py-1 hover:text-gold-500 transition">Valores</a>
+          <a href="#community" class="nav-link text-white text-base font-semibold px-2 py-1 hover:text-gold-500 transition">Comunidade</a>
+        </div>
+        <!-- Botão Discord -->
+        <div class="hidden md:flex">
+          <a href="https://discord.gg/Z83N86yX7p" target="_blank" class="btn-glow bg-gradient-to-r from-gold-500 to-yellow-300 text-black font-bold py-2 px-6 rounded-full shadow-md hover:scale-105 hover:from-yellow-300 hover:to-gold-500 transition-all flex items-center gap-2">
+            <i class="fab fa-discord"></i> Entrar no Discord
           </a>
         </div>
-        <div class="-mr-2 flex md:hidden">
-          <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
-            <span class="sr-only">Open main menu</span>
-            <i class="fas fa-bars"></i>
+        <!-- Mobile menu button -->
+        <div class="md:hidden flex items-center">
+          <button id="mobile-menu-button" class="p-2 rounded-full text-gold-500 hover:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-gold-500 transition">
+            <i class="fas fa-bars text-2xl"></i>
           </button>
         </div>
       </div>
-    </div>
-    
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-dark-800 pb-3 px-2">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700">Sobre</a>
-        <a href="#team" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Equipe</a>
-        <a href="#project" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projeto</a>
-        <a href="#values" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Valores</a>
-        <a href="#community" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Comunidade</a>
-      </div>
-      <div class="px-4">
-        <a href="https://discord.gg/Z83N86yX7p" target="_blank" class="block w-full text-center bg-gold-500 hover:bg-gold-600 text-black font-bold py-2 px-4 rounded-md transition duration-300">
-          <i class="fab fa-discord mr-2"></i> Entrar no Discord
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 pt-2 bg-dark-800/95 backdrop-blur-xl border-b border-gold-500/30 animate-fade-in-down">
+        <a href="#about" class="block py-2 text-white font-semibold hover:text-gold-500 transition">Sobre</a>
+        <a href="#team" class="block py-2 text-white font-semibold hover:text-gold-500 transition">Equipe</a>
+        <a href="#project" class="block py-2 text-white font-semibold hover:text-gold-500 transition">Projeto</a>
+        <a href="#values" class="block py-2 text-white font-semibold hover:text-gold-500 transition">Valores</a>
+        <a href="#community" class="block py-2 text-white font-semibold hover:text-gold-500 transition">Comunidade</a>
+        <a href="https://discord.gg/Z83N86yX7p" target="_blank" class="block mt-3 btn-glow bg-gradient-to-r from-gold-500 to-yellow-300 text-black font-bold py-2 px-6 rounded-full shadow-md text-center hover:scale-105 hover:from-yellow-300 hover:to-gold-500 transition-all">
+          <i class="fab fa-discord"></i> Entrar no Discord
         </a>
       </div>
     </div>
@@ -155,44 +231,43 @@
     <section id="about" class="mb-20 scroll-mt-20">
       <div class="flex items-center mb-8">
         <div class="flex-1 border-t border-gray-700"></div>
-        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center">
+        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center section-title fade-in">
           <span class="text-gold-500 mr-2"><i class="fas fa-info-circle"></i></span>
           Sobre Nós
         </h2>
         <div class="flex-1 border-t border-gray-700"></div>
       </div>
-      
-      <div class="bg-dark-800 rounded-xl p-8 shadow-lg">
-        <p class="text-lg leading-relaxed">
-          A <span class="text-gold-500 font-bold">Vorexis Studios</span> nasceu da paixão por criar jogos que transcendam o simples entretenimento e entreguem experiências envolventes e memoráveis para todos os públicos do Roblox. Fundada por um grupo dedicado de profissionais, prezamos pela excelência técnica e pela inovação sem abrir mão dos princípios tradicionais que regem o desenvolvimento de qualidade.
-        </p>
-        <p class="text-lg leading-relaxed mt-6">
-          Nosso foco é construir títulos que combinem criatividade, estabilidade e uma narrativa sólida, sempre respeitando nossa comunidade e suas expectativas. Cada projeto é uma oportunidade de superar limites e estabelecer novos padrões na plataforma Roblox.
-        </p>
-        
-        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-dark-700 p-6 rounded-lg border-l-4 border-gold-500">
-            <div class="text-gold-500 text-3xl mb-4">
-              <i class="fas fa-medal"></i>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">Qualidade</h3>
-            <p class="text-gray-400">Compromisso com a excelência em cada detalhe dos nossos jogos.</p>
+      <div class="max-w-3xl mx-auto fade-in bg-white/5 backdrop-blur-xl border border-gold-500/30 rounded-2xl p-10 shadow-2xl text-center">
+        <div class="flex flex-col items-center mb-6">
+          <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-4 border-gold-500/60 shadow-lg mb-4">
+            <i class="fas fa-rocket text-gold-500 text-4xl"></i>
           </div>
-          
-          <div class="bg-dark-700 p-6 rounded-lg border-l-4 border-gold-500">
-            <div class="text-gold-500 text-3xl mb-4">
-              <i class="fas fa-lightbulb"></i>
+          <h3 class="text-2xl font-bold text-white mb-2 gradient-text">Vorexis Studios</h3>
+        </div>
+        <p class="text-lg text-gray-200 leading-relaxed mb-6">
+          A <span class="text-gold-500 font-bold">Vorexis Studios</span> nasceu da paixão por criar jogos que vão além do entretenimento, entregando experiências marcantes e inovadoras para toda a comunidade Roblox. Fundada por profissionais dedicados, unimos excelência técnica, criatividade e respeito aos valores tradicionais do desenvolvimento de qualidade.
+        </p>
+        <p class="text-lg text-gray-300 leading-relaxed mb-8">
+          Nosso objetivo é construir títulos que misturam inovação, estabilidade e narrativa sólida, sempre ouvindo nossa comunidade e superando expectativas. Cada projeto é uma oportunidade de elevar o padrão na plataforma Roblox.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 mt-6">
+          <div class="flex flex-col items-center">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-2 border-gold-500/60 shadow">
+              <i class="fas fa-medal text-gold-500 text-2xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-white mb-2">Inovação</h3>
-            <p class="text-gray-400">Busca constante por novas ideias e mecânicas inovadoras.</p>
+            <span class="mt-2 text-gold-500 font-semibold text-sm">Qualidade</span>
           </div>
-          
-          <div class="bg-dark-700 p-6 rounded-lg border-l-4 border-gold-500">
-            <div class="text-gold-500 text-3xl mb-4">
-              <i class="fas fa-users"></i>
+          <div class="flex flex-col items-center">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-2 border-gold-500/60 shadow">
+              <i class="fas fa-lightbulb text-gold-500 text-2xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-white mb-2">Comunidade</h3>
-            <p class="text-gray-400">Valorização do feedback e da interação com nossos jogadores.</p>
+            <span class="mt-2 text-gold-500 font-semibold text-sm">Inovação</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-2 border-gold-500/60 shadow">
+              <i class="fas fa-users text-gold-500 text-2xl"></i>
+            </div>
+            <span class="mt-2 text-gold-500 font-semibold text-sm">Comunidade</span>
           </div>
         </div>
       </div>
@@ -202,100 +277,86 @@
     <section id="team" class="mb-20 scroll-mt-20">
       <div class="flex items-center mb-8">
         <div class="flex-1 border-t border-gray-700"></div>
-        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center">
+        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center section-title fade-in">
           <span class="text-gold-500 mr-2"><i class="fas fa-users"></i></span>
           Nossa Equipe
         </h2>
         <div class="flex-1 border-t border-gray-700"></div>
       </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Member 1 -->
-        <div class="team-card bg-dark-800 rounded-xl overflow-hidden shadow-lg transition duration-300 hover:border-gold-500 border border-transparent">
-          <div class="member-image bg-gradient-to-b from-dark-700 to-dark-800 h-48 flex items-center justify-center transition duration-300">
-            <i class="fas fa-crown text-gold-500 text-6xl"></i>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-white mb-1">Shakwhite10</h3>
-            <p class="text-gold-500 text-sm mb-4">Proprietário & Lead Developer</p>
-            <p class="text-gray-400">
-              Líder visionário com vasta experiência em construção e programação, garantindo que cada projeto atinja os mais altos padrões de qualidade.
-            </p>
-            <div class="mt-4 flex space-x-2">
-              <span class="bg-dark-700 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Builder</span>
-              <span class="bg-dark-700 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Scripter</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Membro 1 -->
+        <div class="fade-in bg-white/5 backdrop-blur-xl border border-gold-500/30 rounded-2xl p-6 flex flex-col items-center shadow-xl team-card transition-all duration-300 hover:scale-105 hover:border-gold-500 group">
+          <div class="relative mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-4 border-gold-500/60 group-hover:border-gold-500 transition-all duration-300 shadow-lg">
+              <i class="fas fa-crown text-gold-500 text-5xl"></i>
             </div>
           </div>
+          <h3 class="text-xl font-bold text-white mb-1 text-center">Shakwhite10</h3>
+          <p class="text-gold-500 text-sm mb-2 font-semibold text-center">Proprietário & Lead Developer</p>
+          <div class="flex flex-wrap gap-2 justify-center mb-2">
+            <span class="bg-gold-500/10 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Builder</span>
+            <span class="bg-gold-500/10 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Scripter</span>
+          </div>
+          <p class="text-gray-300 text-sm text-center">Líder visionário com vasta experiência em construção e programação, garantindo que cada projeto atinja os mais altos padrões de qualidade.</p>
         </div>
-        
-        <!-- Member 2 -->
-        <div class="team-card bg-dark-800 rounded-xl overflow-hidden shadow-lg transition duration-300 hover:border-gold-500 border border-transparent">
-          <div class="member-image bg-gradient-to-b from-dark-700 to-dark-800 h-48 flex items-center justify-center transition duration-300">
-            <i class="fas fa-chess-queen text-gold-500 text-6xl"></i>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-white mb-1">Joao</h3>
-            <p class="text-gold-500 text-sm mb-4">Vice-Proprietário & Builder</p>
-            <p class="text-gray-400">
-              Especialista em criar ambientes imersivos que elevam a experiência do jogador através de cenários ricos e detalhados.
-            </p>
-            <div class="mt-4 flex space-x-2">
-              <span class="bg-dark-700 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Builder</span>
-              <span class="bg-dark-700 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Designer</span>
+        <!-- Membro 2 -->
+        <div class="fade-in bg-white/5 backdrop-blur-xl border border-gold-500/30 rounded-2xl p-6 flex flex-col items-center shadow-xl team-card transition-all duration-300 hover:scale-105 hover:border-gold-500 group">
+          <div class="relative mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-4 border-gold-500/60 group-hover:border-gold-500 transition-all duration-300 shadow-lg">
+              <i class="fas fa-chess-queen text-gold-500 text-5xl"></i>
             </div>
           </div>
+          <h3 class="text-xl font-bold text-white mb-1 text-center">Joao</h3>
+          <p class="text-gold-500 text-sm mb-2 font-semibold text-center">Vice-Proprietário & Builder</p>
+          <div class="flex flex-wrap gap-2 justify-center mb-2">
+            <span class="bg-gold-500/10 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Builder</span>
+            <span class="bg-gold-500/10 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Designer</span>
+          </div>
+          <p class="text-gray-300 text-sm text-center">Especialista em criar ambientes imersivos que elevam a experiência do jogador através de cenários ricos e detalhados.</p>
         </div>
-        
-        <!-- Member 3 -->
-        <div class="team-card bg-dark-800 rounded-xl overflow-hidden shadow-lg transition duration-300 hover:border-gold-500 border border-transparent">
-          <div class="member-image bg-gradient-to-b from-dark-700 to-dark-800 h-48 flex items-center justify-center transition duration-300">
-            <i class="fas fa-paint-brush text-gold-500 text-6xl"></i>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-white mb-1">Astro</h3>
-            <p class="text-gold-500 text-sm mb-4">Builder & Designer</p>
-            <p class="text-gray-400">
-              Criativo especializado em estruturas que unem funcionalidade e estética para uma experiência visualmente impressionante.
-            </p>
-            <div class="mt-4 flex space-x-2">
-              <span class="bg-dark-700 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Builder</span>
-              <span class="bg-dark-700 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">3D Artist</span>
+        <!-- Membro 3 -->
+        <div class="fade-in bg-white/5 backdrop-blur-xl border border-gold-500/30 rounded-2xl p-6 flex flex-col items-center shadow-xl team-card transition-all duration-300 hover:scale-105 hover:border-gold-500 group">
+          <div class="relative mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-4 border-gold-500/60 group-hover:border-gold-500 transition-all duration-300 shadow-lg">
+              <i class="fas fa-paint-brush text-gold-500 text-5xl"></i>
             </div>
           </div>
+          <h3 class="text-xl font-bold text-white mb-1 text-center">Astro</h3>
+          <p class="text-gold-500 text-sm mb-2 font-semibold text-center">Builder & Designer</p>
+          <div class="flex flex-wrap gap-2 justify-center mb-2">
+            <span class="bg-gold-500/10 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Builder</span>
+            <span class="bg-gold-500/10 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">3D Artist</span>
+          </div>
+          <p class="text-gray-300 text-sm text-center">Criativo especializado em estruturas que unem funcionalidade e estética para uma experiência visualmente impressionante.</p>
         </div>
-        
-        <!-- Member 4 -->
-        <div class="team-card bg-dark-800 rounded-xl overflow-hidden shadow-lg transition duration-300 hover:border-gold-500 border border-transparent">
-          <div class="member-image bg-gradient-to-b from-dark-700 to-dark-800 h-48 flex items-center justify-center transition duration-300">
-            <i class="fas fa-code text-gold-500 text-6xl"></i>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-white mb-1">yzacxd01</h3>
-            <p class="text-gold-500 text-sm mb-4">Scripter & Programador</p>
-            <p class="text-gray-400">
-              Habilidoso desenvolvedor responsável por sistemas robustos e otimizados que dão vida às mecânicas dos jogos.
-            </p>
-            <div class="mt-4 flex space-x-2">
-              <span class="bg-dark-700 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Programador</span>
-              <span class="bg-dark-700 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Sistemas</span>
+        <!-- Membro 4 -->
+        <div class="fade-in bg-white/5 backdrop-blur-xl border border-gold-500/30 rounded-2xl p-6 flex flex-col items-center shadow-xl team-card transition-all duration-300 hover:scale-105 hover:border-gold-500 group">
+          <div class="relative mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-4 border-gold-500/60 group-hover:border-gold-500 transition-all duration-300 shadow-lg">
+              <i class="fas fa-code text-gold-500 text-5xl"></i>
             </div>
           </div>
+          <h3 class="text-xl font-bold text-white mb-1 text-center">yzacxd01</h3>
+          <p class="text-gold-500 text-sm mb-2 font-semibold text-center">Scripter & Programador</p>
+          <div class="flex flex-wrap gap-2 justify-center mb-2">
+            <span class="bg-gold-500/10 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Programador</span>
+            <span class="bg-gold-500/10 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Sistemas</span>
+          </div>
+          <p class="text-gray-300 text-sm text-center">Habilidoso desenvolvedor responsável por sistemas robustos e otimizados que dão vida às mecânicas dos jogos.</p>
         </div>
-	        <!-- Member 5 -->
-        <div class="team-card bg-dark-800 rounded-xl overflow-hidden shadow-lg transition duration-300 hover:border-gold-500 border border-transparent">
-          <div class="member-image bg-gradient-to-b from-dark-700 to-dark-800 h-48 flex items-center justify-center transition duration-300">
-            <i class="fas fa-paint-brush text-gold-500 text-6xl"></i>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-white mb-1">IDEN</h3>
-            <p class="text-gold-500 text-sm mb-4">Builder</p>
-            <p class="text-gray-400">
-              Responsável por construir mapas, cenários e estruturas no Roblox com criatividade, atenção aos detalhes e otimização para jogabilidade. Essencial para dar vida visual aos nossos projetos.
-            </p>
-            <div class="mt-4 flex space-x-2">
-              <span class="bg-dark-700 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Builder</span>
+        <!-- Membro 5 -->
+        <div class="fade-in bg-white/5 backdrop-blur-xl border border-gold-500/30 rounded-2xl p-6 flex flex-col items-center shadow-xl team-card transition-all duration-300 hover:scale-105 hover:border-gold-500 group">
+          <div class="relative mb-4">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-4 border-gold-500/60 group-hover:border-gold-500 transition-all duration-300 shadow-lg">
+              <i class="fas fa-paint-brush text-gold-500 text-5xl"></i>
             </div>
           </div>
+          <h3 class="text-xl font-bold text-white mb-1 text-center">IDEN</h3>
+          <p class="text-gold-500 text-sm mb-2 font-semibold text-center">Builder</p>
+          <div class="flex flex-wrap gap-2 justify-center mb-2">
+            <span class="bg-gold-500/10 text-gold-500 px-3 py-1 rounded-full text-xs font-semibold">Builder</span>
+          </div>
+          <p class="text-gray-300 text-sm text-center">Responsável por construir mapas, cenários e estruturas no Roblox com criatividade, atenção aos detalhes e otimização para jogabilidade. Essencial para dar vida visual aos nossos projetos.</p>
         </div>
       </div>
     </section>
@@ -304,72 +365,66 @@
     <section id="project" class="mb-20 scroll-mt-20">
       <div class="flex items-center mb-8">
         <div class="flex-1 border-t border-gray-700"></div>
-        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center">
+        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center section-title fade-in">
           <span class="text-gold-500 mr-2"><i class="fas fa-gamepad"></i></span>
           Nosso Projeto Atual
         </h2>
         <div class="flex-1 border-t border-gray-700"></div>
       </div>
-      
-      <div class="game-card rounded-xl overflow-hidden border border-gray-800">
-        <div class="md:flex">
-          <div class="md:w-1/3 bg-gradient-to-br from-dark-800 to-dark-900 p-8 flex items-center justify-center">
-            <div class="text-center">
-              <h3 class="text-3xl font-bold text-white mb-2">[✨] BOX for UP</h3>
-              <span class="inline-block bg-yellow-500 bg-opacity-20 text-gold-500 px-4 py-2 rounded-full text-sm font-bold mb-4">
-                <i class="fas fa-hammer mr-2"></i> EM DESENVOLVIMENTO
-              </span>
-              <div class="mt-6">
-                <div class="flex items-center justify-center space-x-4">
-                  <div class="text-center">
-                    <div class="text-gold-500 text-2xl"><i class="fas fa-users"></i></div>
-                    <div class="text-white font-bold">Multiplayer</div>
-                  </div>
-                  <div class="text-center">
-                    <div class="text-gold-500 text-2xl"><i class="fas fa-mountain"></i></div>
-                    <div class="text-white font-bold">Escalada</div>
-                  </div>
-                  <div class="text-center">
-                    <div class="text-gold-500 text-2xl"><i class="fas fa-cubes"></i></div>
-                    <div class="text-white font-bold">Construção</div>
-                  </div>
+      <div class="max-w-4xl mx-auto fade-in bg-white/5 backdrop-blur-xl border border-gold-500/30 rounded-2xl p-10 shadow-2xl">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="flex-1 flex flex-col items-center md:items-start">
+            <h3 class="text-3xl font-bold text-white mb-2 gradient-text text-center md:text-left">[✨] BOX for UP</h3>
+            <span class="inline-block bg-gradient-to-r from-gold-500 to-yellow-300 text-black font-bold px-5 py-2 rounded-full text-sm mb-4 animate-pulse shadow-md">
+              <i class="fas fa-hammer mr-2"></i> EM DESENVOLVIMENTO
+            </span>
+            <div class="flex flex-wrap gap-4 mb-6 justify-center md:justify-start">
+              <div class="flex flex-col items-center">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-2 border-gold-500/60 shadow">
+                  <i class="fas fa-users text-gold-500 text-xl"></i>
                 </div>
+                <span class="mt-1 text-gold-500 font-semibold text-xs">Multiplayer</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-2 border-gold-500/60 shadow">
+                  <i class="fas fa-mountain text-gold-500 text-xl"></i>
+                </div>
+                <span class="mt-1 text-gold-500 font-semibold text-xs">Escalada</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-gold-500/80 to-yellow-300/60 flex items-center justify-center border-2 border-gold-500/60 shadow">
+                  <i class="fas fa-cubes text-gold-500 text-xl"></i>
+                </div>
+                <span class="mt-1 text-gold-500 font-semibold text-xs">Construção</span>
               </div>
             </div>
           </div>
-          <div class="md:w-2/3 p-8">
+          <div class="flex-1">
             <h4 class="text-xl font-bold text-white mb-4">Sobre o Jogo</h4>
-            <p class="text-gray-400 mb-4">
-              [✨] BOX for UP é um inovador jogo de escalada vertical onde a habilidade de construir se torna a principal ferramenta para a vitória. Os jogadores enfrentam o desafio constante de posicionar blocos de forma estratégica, subindo cada vez mais alto enquanto lidam com limites rigorosos de alcance, obstáculos ambientais e a pressão implacável do tempo.
+            <p class="text-gray-200 mb-4 text-base">
+              [✨] BOX for UP é um inovador jogo de escalada vertical onde a criatividade na construção é a chave para a vitória. Enfrente desafios, posicione blocos estrategicamente e suba cada vez mais alto, lidando com obstáculos, limites de alcance e a pressão do tempo.
             </p>
-            <p class="text-gray-400 mb-4">
-              O grande diferencial está na dinâmica multiplayer competitiva: espaço e recursos são escassos, exigindo precisão cirúrgica e planejamento tático. Cada bloco colocado pode ser o passo decisivo rumo ao sucesso ou a armadilha que encerra a escalada, testando a criatividade, a agilidade e a resiliência dos participantes.
+            <p class="text-gray-300 mb-6 text-base">
+              O diferencial está na competição multiplayer: recursos escassos, precisão e planejamento tático são essenciais. Cada bloco pode ser o passo para o topo ou a armadilha que encerra sua escalada!
             </p>
-            <p class="text-gray-400 mb-6">
-              Com controles simplificados e um sistema de construção intuitivo, [✨] BOX for UP resgata a essência dos clássicos jogos de plataforma e construção, ao mesmo tempo em que oferece uma experiência moderna, desafiadora e repleta de adrenalina.
-            </p>
-            
-            <div class="bg-dark-700 rounded-lg p-4 border-l-4 border-gold-500">
+            <div class="bg-dark-700 rounded-lg p-4 border-l-4 border-gold-500 mb-6">
               <h5 class="font-bold text-white mb-2 flex items-center">
-                <i class="fas fa-bullseye text-gold-500 mr-2"></i> Objetivo Principal
+                <i class="fas fa-bullseye text-gold-500 mr-2"></i> Objetivo
               </h5>
-              <p class="text-gray-300">
-                Alcançar o topo, superar todos os obstáculos e dominar a arte de construir, escalando o impossível.
+              <p class="text-gray-300 text-sm">
+                Alcançar o topo, superar obstáculos e dominar a arte de construir, escalando o impossível.
               </p>
             </div>
-            
-            <div class="mt-8">
-              <h5 class="font-bold text-white mb-3">Progresso do Desenvolvimento</h5>
-              <div class="w-full bg-dark-700 rounded-full h-4">
-                <div class="bg-gradient-to-r from-gold-500 to-yellow-300 h-4 rounded-full" style="width: 65%"></div>
-              </div>
-              <div class="flex justify-between text-xs text-gray-400 mt-2">
-                <span>Conceito</span>
-                <span>Desenvolvimento</span>
-                <span>Testes</span>
-                <span>Lançamento</span>
-              </div>
+            <div class="mb-2 flex items-center justify-between text-xs text-gray-400">
+              <span>Conceito</span>
+              <span>Desenvolvimento</span>
+              <span>Testes</span>
+              <span>Lançamento</span>
             </div>
+            <div class="w-full bg-dark-700 rounded-full h-4 mb-2 overflow-hidden">
+              <div class="bg-gradient-to-r from-gold-500 to-yellow-300 h-4 rounded-full animate-pulse" style="width: 65%"></div>
+            </div>
+            <div class="text-right text-xs text-gold-500 font-bold">65% concluído</div>
           </div>
         </div>
       </div>
@@ -379,7 +434,7 @@
     <section id="values" class="mb-20 scroll-mt-20">
       <div class="flex items-center mb-8">
         <div class="flex-1 border-t border-gray-700"></div>
-        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center">
+        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center section-title fade-in">
           <span class="text-gold-500 mr-2"><i class="fas fa-star"></i></span>
           Nossos Valores
         </h2>
@@ -387,7 +442,7 @@
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-dark-800 rounded-xl p-8 border-l-4 border-gold-500">
+        <div class="bg-dark-800 rounded-xl p-8 border-l-4 border-gold-500 fade-in">
           <div class="flex items-start">
             <div class="text-gold-500 text-2xl mr-4 mt-1">
               <i class="fas fa-medal"></i>
@@ -401,7 +456,7 @@
           </div>
         </div>
         
-        <div class="bg-dark-800 rounded-xl p-8 border-l-4 border-gold-500">
+        <div class="bg-dark-800 rounded-xl p-8 border-l-4 border-gold-500 fade-in">
           <div class="flex items-start">
             <div class="text-gold-500 text-2xl mr-4 mt-1">
               <i class="fas fa-users-cog"></i>
@@ -415,7 +470,7 @@
           </div>
         </div>
         
-        <div class="bg-dark-800 rounded-xl p-8 border-l-4 border-gold-500">
+        <div class="bg-dark-800 rounded-xl p-8 border-l-4 border-gold-500 fade-in">
           <div class="flex items-start">
             <div class="text-gold-500 text-2xl mr-4 mt-1">
               <i class="fas fa-heart"></i>
@@ -429,7 +484,7 @@
           </div>
         </div>
         
-        <div class="bg-dark-800 rounded-xl p-8 border-l-4 border-gold-500">
+        <div class="bg-dark-800 rounded-xl p-8 border-l-4 border-gold-500 fade-in">
           <div class="flex items-start">
             <div class="text-gold-500 text-2xl mr-4 mt-1">
               <i class="fas fa-lightbulb"></i>
@@ -449,7 +504,7 @@
     <section id="community" class="mb-20 scroll-mt-20">
       <div class="flex items-center mb-8">
         <div class="flex-1 border-t border-gray-700"></div>
-        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center">
+        <h2 class="mx-4 text-3xl md:text-4xl font-bold text-white flex items-center section-title fade-in">
           <span class="text-gold-500 mr-2"><i class="fas fa-comments"></i></span>
           Junte-se à Nossa Comunidade
         </h2>
@@ -467,7 +522,7 @@
               Participar da comunidade Vorexis Studios significa fazer parte do futuro da criação de jogos dentro do Roblox, colaborando para que nossos projetos cresçam e atinjam seu máximo potencial.
             </p>
             
-            <a href="https://discord.gg/Z83N86yX7p" target="_blank" class="inline-block bg-gold-500 hover:bg-gold-600 text-black font-bold py-3 px-6 rounded-md transition duration-300 text-lg">
+            <a href="https://discord.gg/Z83N86yX7p" target="_blank" class="inline-block bg-gold-500 hover:bg-gold-600 text-black font-bold py-3 px-6 rounded-md transition duration-300 text-lg btn-glow">
               <i class="fab fa-discord mr-2"></i> Entrar no Discord
             </a>
           </div>
@@ -518,7 +573,7 @@
   </footer>
 
   <script>
-    // Mobile menu toggle
+    // Mobile menu toggle (novo)
     document.getElementById('mobile-menu-button').addEventListener('click', function() {
       const menu = document.getElementById('mobile-menu');
       menu.classList.toggle('hidden');
@@ -557,6 +612,23 @@
         nav.classList.remove('shadow-lg');
       }
     });
+    
+    // Fade-in ao carregar
+    window.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('loaded');
+    });
+    
+    // Animação de entrada para elementos visíveis
+    function animateOnScroll() {
+      document.querySelectorAll('.fade-in').forEach(function(el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 60) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('DOMContentLoaded', animateOnScroll);
   </script>
 </body>
 </html>
